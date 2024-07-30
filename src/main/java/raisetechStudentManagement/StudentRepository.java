@@ -9,4 +9,7 @@ public interface StudentRepository {
 
   @Select("SELECT * FROM students")
   List<Student> search();
+
+  @Select("SELECT * FROM studentscourse")
+  List<StudentsCourses> searchStudentsCourse();
 }
