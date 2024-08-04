@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 
 public class Student {
-  private int id;
+  private String id;
   private String name;
   private String hurigana;
 
-  //映像も小文字
+  //映像小文字
   private String nickname;
   private String mailAddress;
   private String area;
