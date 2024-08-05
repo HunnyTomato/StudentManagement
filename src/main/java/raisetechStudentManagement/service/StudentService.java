@@ -22,11 +22,6 @@ public class StudentService {
     return repository.searchByAge(age);
   }
 
-  @GetMapping("/student")
-  public List<Student> searchStudentList(int age){
-    return repository.selectByAge(age);
-  }
-
   @GetMapping("/students_Courses")
   public List<StudentsCourses> getStudentsCoursesList(String course) {
     return repository.searchByCourse(course);
