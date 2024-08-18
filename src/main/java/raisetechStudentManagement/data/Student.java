@@ -10,8 +10,6 @@ public class Student {
   private String id;
   private String name;
   private String hurigana;
-
-  //映像小文字
   private String nickname;
   private String mailAddress;
   private String area;
