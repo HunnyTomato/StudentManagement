@@ -7,6 +7,10 @@
 <h1>受講生更新</h1>
 <form th:action="@{/updateStudent}" th:object="${studentDetail}" method="post">
   <div>
+    <label for="id">ID:</label>
+    <input type="text" id="id" th:field="*{student.id}" required/>
+  </div>
+  <div>
     <label for="name">名前:</label>
     <input type="text" id="name" th:field="*{student.name}" required/>
   </div>
@@ -43,9 +47,9 @@
     <input type="checkbox" id="isDeleted" th:field="*{student.deleted}"/>
   </div>
   <div th:each="course, stat : *{studentsCourses}">
-    <label for="id" th:for="studentCourse.__${stat.index}__.id">受講コースID: </label>
-    <input type="text" id="id" th:id="studentCourse.__${stat.index}__.id"
-           th:field="*{studentsCourses[__${stat.index}__].id}"/>
+    <label for="courseId" th:for="studentCourse.__${stat.index}__.courseId">受講コースID: </label>
+    <input type="text" id="courseId" th:id="studentCourse.__${stat.index}__.courseId"
+           th:field="*{studentsCourses[__${stat.index}__].courseId}"/>
     <label for="course" th:for="studentCourse.__${stat.index}__.course">受講コース名: </label>
     <input type="text" id="course" th:id="studentCourse.__${stat.index}__.course"
            th:field="*{studentsCourses[__${stat.index}__].course}"/>
