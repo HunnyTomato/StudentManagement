@@ -31,6 +31,8 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.14.0'
 	// Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.2'
+	//Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.3'
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

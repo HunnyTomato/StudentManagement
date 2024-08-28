@@ -1,4 +1,4 @@
-package raisetechstudentmanagement.data;
+package raisetech.student.management.data;
 
 import java.time.LocalDate;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class StudentsCourses {
+public class StudentCourse {
+
   private String courseId;
   private String studentId;
   private String course;
