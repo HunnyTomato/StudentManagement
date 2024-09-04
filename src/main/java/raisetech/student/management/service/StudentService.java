@@ -25,7 +25,7 @@ public class StudentService {
   public List<StudentDetail> searchStudentList() {
     List<Student> studentList = repository.search();
     List<StudentCourse> studentCourseList = repository.searchStudentCourseList();
-    return converter.convertStudentsDetails(studentList, studentCourseList);
+    return converter.convertStudentDetails(studentList, studentCourseList);
   }
 
   public StudentDetail searchStudent(String id){
