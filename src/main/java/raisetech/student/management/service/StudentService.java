@@ -1,6 +1,6 @@
 package raisetech.student.management.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,15 +39,15 @@ public class StudentService {
     Student student = studentDetail.getStudent();
     repository.registerStudent(student);
     studentDetail.getStudentsCourseList().forEach(studentsCourse -> {
-      initStudentsCourse(studentsCourse, student);
+      initStudentsCourse(studentsCourse, student.getId());
       repository.registerStudentCourse(studentsCourse);
     });
     return studentDetail;
   }
 
-  private void initStudentsCourse(StudentCourse studentsCourse, Student student) {
-    LocalDate now = LocalDate.now();
-    studentsCourse.setStudentId(student.getId());
+  void initStudentsCourse(StudentCourse studentsCourse, String id) {
+    LocalDateTime now = LocalDateTime.now();
+    studentsCourse.setStudentId(id);
     studentsCourse.setCoursesStartDate(now);
     studentsCourse.setCoursesExpectedCompletionDate(now.plusYears(1));
   }

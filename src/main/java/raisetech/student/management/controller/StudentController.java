@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import java.util.List;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,22 +38,29 @@ public class StudentController {
     return service.searchStudentList();
   }
 
+  @Operation(summary = "受講生検索", description = "受講生を検索します。")
   @GetMapping("/student/{id}")
   public StudentDetail getStudent(@PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id){
     return service.searchStudent(id);
   }
 
-  @Operation(summary = "受講生登録", description = "受講生を登録しました。")
+  @Operation(summary = "受講生登録", description = "受講生を登録します。")
   @PostMapping("/registerStudent")
   public ResponseEntity<StudentDetail> registerStudent(@RequestBody @Valid StudentDetail studentDetail){
     StudentDetail responseStudentDetail = service.registerStudent(studentDetail);
     return ResponseEntity.ok(responseStudentDetail);
   }
-  @Operation(summary = "受講生更新", description = "更新処理が成功しました。")
+
+  @Operation(summary = "受講生更新", description = "受講生を更新します。")
   @PutMapping("/updateStudent")
   public ResponseEntity<String> updateStudent(@RequestBody @Valid StudentDetail studentDetail){
     service.updateStudent(studentDetail);
-    return ResponseEntity.ok("更新処理が成功しました。");
+    return ResponseEntity.ok("受講生を更新します。");
+  }
+
+  @GetMapping("/exception")
+  public ResponseEntity<String> throwException() throws NotFoundException {
+    throw new NotFoundException("このAPIは現在使われておりません。古いURLとなっております。");
   }
 
   @ExceptionHandler(TestException.class)
