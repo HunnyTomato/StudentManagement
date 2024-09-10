@@ -23,7 +23,7 @@ public class StudentConverter {
           convertStudentCourseList.add(studentCourse);
         }
       }
-      studentDetail.setStudentsCourseList(convertStudentCourseList);
+      studentDetail.setStudentCourseList(convertStudentCourseList);
       studentDetails.add(studentDetail);
     }
     return studentDetails;

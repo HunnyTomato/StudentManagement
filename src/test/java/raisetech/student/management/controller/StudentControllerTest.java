@@ -1,20 +1,19 @@
 package raisetech.student.management.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import java.util.Set;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -50,6 +49,75 @@ class StudentControllerTest {
         .andExpect(status().isOk());
 
     verify(service, times(1)).searchStudent(id);
+  }
+
+  @Test
+  void 受講生が返ってくること() throws Exception {
+    mockmvc.perform(post("/registerStudent").contentType(MediaType.APPLICATION_JSON)
+        .content("""
+                {
+                  "student" : {
+                    "name" : "津田晋太郎",
+                    "hurigana" : "ツダシンタロウ",
+                    "nickname" : "シン",
+                    "mailAddress" : "test@gmail.com",
+                    "area" : "千葉",
+                    "age" : "25",
+                    "gender" : "M",
+                   "remark" : ""
+                   },
+                "studentCourseList" : [
+                  {
+                      "course" : "Java"
+                  }
+                 ]
+                }
+                """
+        ))
+        .andExpect(status().isOk());
+
+    verify(service, times(1)).registerStudent(any());
+
+  }
+
+  @Test
+  void 受講生を更新() throws Exception {
+    mockmvc.perform(put("/updateStudent").contentType(MediaType.APPLICATION_JSON).content(
+                """
+                {
+                  "student" : {
+                    "id" : "23",
+                    "name" : "津田晋太郎",
+                    "hurigana" : "ツダシンタロウ",
+                    "nickname" : "シン",
+                    "mailAddress" : "test@gmail.com",
+                    "area" : "千葉",
+                    "age" : "25",
+                    "gender" : "M",
+                   "remark" : ""
+                   },
+                "studentCourseList" : [
+                   {
+                      "studentId" : "23",
+                      "course" : "Java",
+                      "coursesStartDate" : "2024-09-08T16:34:41.833614",
+                      "coursesExpectedCompletionDate" : "2024-09-08T16:34:41.833614"
+                   }
+                  ]
+                }
+                """
+            ))
+        .andExpect(status().isOk());
+
+    verify(service, times(1)).updateStudent(any());
+
+  }
+
+  @Test
+  void 受講生詳細の例外APIの実行ができてステータスが400で返ってくること() throws Exception{
+    mockmvc.perform(get("/exception"))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().string("このAPIは現在使われておりません。古いURLとなっております。"));
   }
 
   @Test

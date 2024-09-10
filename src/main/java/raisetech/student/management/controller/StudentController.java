@@ -63,8 +63,8 @@ public class StudentController {
     throw new NotFoundException("このAPIは現在使われておりません。古いURLとなっております。");
   }
 
-  @ExceptionHandler(TestException.class)
-  public ResponseEntity<String> handleTestException(TestException ex) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+  @ExceptionHandler(NotFoundException.class)
+  public ResponseEntity<String> handleNotFoundException(NotFoundException ex) {
+    return ResponseEntity.badRequest().body(ex.getMessage());
   }
 }
